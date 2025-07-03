@@ -20,6 +20,14 @@ $routes->group('produk', ['filter' => 'auth'], function ($routes) {
     $routes->get('download', 'ProdukController::download');
 
 });
+$routes->group('diskon', ['filter' => 'auth'], function ($routes) {
+    $routes->get('', 'DiskonController::index');              
+    $routes->get('create', 'DiskonController::create');       
+    $routes->post('store', 'DiskonController::store');       
+    $routes->get('edit/(:num)', 'DiskonController::edit/$1'); 
+    $routes->post('update/(:num)', 'DiskonController::update/$1'); 
+    $routes->get('delete/(:num)', 'DiskonController::delete/$1');  
+});
 
 $routes->group('keranjang', ['filter' => 'auth'], function ($routes) {
     $routes->get('', 'TransaksiController::index');
@@ -48,4 +56,9 @@ $routes->get('faq', 'Home::faq', ['filter' => 'auth']);
 $routes->get('profile', 'Home::profile', ['filter' => 'auth']);
 $routes->get('contact', 'Home::contact', ['filter' => 'auth']);
 
-$routes->resource('api', ['controller' => 'apiController']);
+$routes->group('api', function($routes) {
+    $routes->get('jumlah-item', 'ApiController::jumlah_item');
+});
+
+$routes->resource('api', ['controller' => 'ApiController']);
+

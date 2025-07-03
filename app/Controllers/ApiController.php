@@ -10,6 +10,7 @@ use App\Models\TransactionModel;
 use App\Models\TransactionDetailModel;
 
 class ApiController extends ResourceController
+
 {
     protected $apiKey;
     protected $user;
@@ -18,13 +19,15 @@ class ApiController extends ResourceController
 
     function __construct()
     {
-       
-        $this->apiKey = env('API_KEY');
-        $this->user = new UserModel();
-        $this->transaction = new TransactionModel();
-        $this->transaction_detail = new TransactionDetailModel();
+    $this->apiKey = env('API_KEY');
+    $this->user = new UserModel();
+    $this->transaction = new TransactionModel();
+    $this->transaction_detail = new TransactionDetailModel();
+   }
 
-    }
+    
+    
+
     /**
      * Return an array of resource objects, themselves in array format.
      *
@@ -59,71 +62,26 @@ class ApiController extends ResourceController
 
     return $this->respond($data);
 }
-    /**
-     * Return the properties of a resource object.
-     *
-     * @param int|string|null $id
-     *
-     * @return ResponseInterface
-     */
-    public function show($id = null)
-    {
-        //
-    }
 
-    /**
-     * Return a new resource object, with default properties.
-     *
-     * @return ResponseInterface
-     */
-    public function new()
-    {
-        //
-    }
+public function jumlah_item()
+{
+    $id = $this->request->getGet('id');
 
-    /**
-     * Create a new resource object, from "posted" parameters.
-     *
-     * @return ResponseInterface
-     */
-    public function create()
-    {
-        //
-    }
+    $db = \Config\Database::connect();
+    $builder = $db->table('transaction_detail');
+    $builder->select('transaction_id, jumlah');
+    $builder->where('transaction_id', $id);
+    $result = $builder->get()->getResult();
 
-    /**
-     * Return the editable properties of a resource object.
-     *
-     * @param int|string|null $id
-     *
-     * @return ResponseInterface
-     */
-    public function edit($id = null)
-    {
-        //
-    }
+    $builder = $db->table('transaction_detail');
+    $builder->selectSum('jumlah');
+    $builder->where('transaction_id', $id);
+    $query = $builder->get()->getRow();
 
-    /**
-     * Add or update a model resource, from "posted" properties.
-     *
-     * @param int|string|null $id
-     *
-     * @return ResponseInterface
-     */
-    public function update($id = null)
-    {
-        //
-    }
+    return $this->response->setJSON([
+        'jumlah' => $query->jumlah ?? 0,
+        'debug' => $result
+    ]);
+}
 
-    /**
-     * Delete the designated resource object from the model.
-     *
-     * @param int|string|null $id
-     *
-     * @return ResponseInterface
-     */
-    public function delete($id = null)
-    {
-        //
-    }
 }

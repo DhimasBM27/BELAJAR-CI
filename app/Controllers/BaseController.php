@@ -8,17 +8,8 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use App\Models\DiskonModel;
 
-/**
- * Class BaseController
- *
- * BaseController provides a convenient place for loading components
- * and performing functions that are needed by all your controllers.
- * Extend this class in any new controllers:
- *     class Home extends BaseController
- *
- * For security be sure to declare any new methods as protected or private.
- */
 abstract class BaseController extends Controller
 {
     /**
@@ -43,16 +34,20 @@ abstract class BaseController extends Controller
      */
     // protected $session;
 
-    /**
-     * @return void
-     */
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
-        // Preload any models, libraries, etc, here.
+        // Cek diskon hari ini
+        $diskonModel = new DiskonModel();
+        $hariIni = date('Y-m-d');
+        $diskonHariIni = $diskonModel->where('tanggal', $hariIni)->first();
 
-        // E.g.: $this->session = service('session');
+        if ($diskonHariIni) {
+            session()->set('diskon', $diskonHariIni['nominal']);
+        } else {
+            session()->remove('diskon'); // Hapus jika tidak ada diskon hari ini
+        }
     }
 }

@@ -1,6 +1,6 @@
 # Toko Online CodeIgniter 4
 
-Proyek ini adalah platform toko online yang dibangun menggunakan [CodeIgniter 4](https://codeigniter.com/). Sistem ini menyediakan beberapa fungsionalitas untuk toko online, termasuk manajemen produk, keranjang belanja, dan sistem transaksi.
+Proyek ini adalah platform toko online berbasis web yang dibangun menggunakan [CodeIgniter 4](https://codeigniter.com/). Sistem ini mendukung fungsionalitas transaksi penjualan, pengelolaan produk, diskon, kategori, serta integrasi API (webservice) untuk menampilkan data dashboard dari sisi toko.
 
 ## Daftar Isi
 
@@ -9,26 +9,53 @@ Proyek ini adalah platform toko online yang dibangun menggunakan [CodeIgniter 4]
 - [Instalasi](#instalasi)
 - [Struktur Proyek](#struktur-proyek)
 
-## Fitur
+## ✅ Fitur
 
-- Katalog Produk
-  - Tampilan produk dengan gambar
-  - Pencarian produk
-- Keranjang Belanja
-  - Tambah/hapus produk
-  - Update jumlah produk
-- Sistem Transaksi
-  - Proses checkout
-  - Riwayat transaksi
-- Panel Admin
-  - Manajemen produk (CRUD)
-  - Manajemen kategori
-  - Laporan transaksi
-  - Export data ke PDF
-- Sistem Autentikasi
-  - Login/Register pengguna
-  - Manajemen akun
-- UI Responsif dengan NiceAdmin template
+### Pengguna
+- Login berdasarkan role (`admin`, `guest`)
+- Halaman profil pengguna
+
+### Produk & Kategori
+- Menampilkan daftar produk
+- Tambah, edit, hapus produk (admin)
+- Kategori produk dengan relasi (admin)
+
+### Diskon
+- Menambahkan diskon harian
+- Diskon otomatis ditampilkan jika berlaku hari ini
+- Diskon disimpan dalam session dan digunakan saat checkout
+
+### Keranjang & Transaksi
+- Tambah produk ke keranjang
+- Checkout dengan pengurangan harga diskon per item
+- Menyimpan data transaksi dan detail transaksi ke database
+
+### Dashboard Toko (Webservice)
+- Menampilkan data transaksi via REST API (JSON)
+- Menampilkan **jumlah item** yang dibeli dalam setiap transaksi
+- Menggunakan `curl()` untuk akses webservice
+- Proteksi API dengan header token (`key: random123678abcghi`)
+
+### Fitur Lain
+- Riwayat pembelian per user
+- Export data produk ke Excel
+- Validasi input & notifikasi responsif
+- UI berbasis Bootstrap + NiceAdmin
+
+## ⚙️ Persyaratan Sistem
+
+- PHP >= 8.2
+- Composer
+- MySQL / MariaDB
+- XAMPP atau server lokal setara
+
+## 🚀 Instalasi
+
+1. **Clone repository**
+   ```bash
+   git clone https://github.com/namaproject/namarepo.git
+   cd belajar-ci-tugas
+
 
 ## Persyaratan Sistem
 

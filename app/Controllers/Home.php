@@ -61,6 +61,7 @@ public function profile()
     {
         return view('v_faq');
     }
+    
 
 
     public function contact()
